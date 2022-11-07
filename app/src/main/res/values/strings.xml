@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Memory Tiles</string>
+    <string name="round_number">Round 1</string>
+    <string name="new_game">New Game</string>
+    <string name="try_again">Click New Game to try again!</string>
+    <string name="congrats">Congratulations!</string>
+</resources>
