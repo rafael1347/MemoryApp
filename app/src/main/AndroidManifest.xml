@@ -16,6 +16,9 @@
             android:name=".HomeScreen"
             android:exported="false" />
         <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".SplashScreen"
             android:theme="@style/Theme.App.Starting"
             android:exported="true">
