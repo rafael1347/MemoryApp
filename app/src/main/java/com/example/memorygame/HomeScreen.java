@@ -19,4 +19,14 @@ public class HomeScreen extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+    public void onCustomize(View view) {
+        Intent intent=new Intent(HomeScreen.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+    public void onHowTo(View view) {
+        Intent intent=new Intent(HomeScreen.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }
