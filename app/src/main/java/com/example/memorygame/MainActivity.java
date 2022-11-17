@@ -31,8 +31,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         mTileGrid = findViewById(R.id.tile_grid);
         mRoundLabel = findViewById(R.id.round);
