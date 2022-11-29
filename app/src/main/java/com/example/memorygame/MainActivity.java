@@ -58,8 +58,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void runGame() {
+        
         if(run) {
             mRoundOrder = mGame.newRound(mRound);
+            mRoundLabel.setText("Round " + mRound);
             mCounter = 0;
 
             long time = mRound * 1000;
@@ -106,31 +108,65 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onTileButtonClick(View view) {
+        
         int buttonIndex = mTileGrid.indexOfChild(view);
         Button tileButton = (Button) mTileGrid.getChildAt(buttonIndex);
+        
         if(run) {
-            if (mButtonClicks == mRoundOrder.length - 1) {
+
+            if (buttonIndex == mRoundOrder[mButtonClicks] && mButtonClicks == mRoundOrder.length - 1) {
+
+                long time = 400;
+
+                if (mTimer != null) {
+                    mTimer.cancel();
+                }
+
+                mTimer = new CountDownTimer(time, 400) {
+                    public void onTick(long millisUntilFinished) {
+                        tileButton.setBackgroundColor(mLightOnColor);
+                    }
+
+                    public void onFinish() {
+                        setTilesOff();
+                    }
+                }.start();
+
                 mButtonClicks = 0;
                 mRound++;
                 runGame();
+
             }
-            else {
-                if (buttonIndex == mRoundOrder[mButtonClicks]) {
-                    if (mButtonClicks > 0) {
-                        Button tileButton2 = (Button) mTileGrid.getChildAt(mRoundOrder[mButtonClicks - 1]);
-                        tileButton2.setBackgroundColor(mLightOffColor);
-                        tileButton.setBackgroundColor(mLightOnColor);
-                    } else {
+
+            else if (buttonIndex == mRoundOrder[mButtonClicks] && mButtonClicks < mRoundOrder.length) {
+
+                long time = 400;
+
+                if (mTimer != null) {
+                    mTimer.cancel();
+                }
+
+                mTimer = new CountDownTimer(time, 400) {
+                    public void onTick(long millisUntilFinished) {
                         tileButton.setBackgroundColor(mLightOnColor);
                     }
-                    mButtonClicks++;
-                } else if (buttonIndex != mRoundOrder[mButtonClicks]) {
-                    tileButton.setBackgroundColor(mWrongTileColor);
-                    run = false;
-                    mButtonClicks = 0;
-                    mRound = 1;
-                    runGame();
-                }
+
+                    public void onFinish() {
+                            setTilesOff();
+                        }
+                }.start();
+
+                mButtonClicks++;
+
+            }
+            else if (buttonIndex != mRoundOrder[mButtonClicks]) {
+
+                tileButton.setBackgroundColor(mWrongTileColor);
+                run = false;
+                mButtonClicks = 0;
+                mRound = 1;
+                runGame();
+
             }
         }
     }
