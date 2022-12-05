@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private int mButtonClicks;
     private int mRound;
     private int mCounter;
+    private String playerName;
     private int[] mRoundOrder;
     private CountDownTimer mTimer;
     private boolean run;
@@ -41,8 +42,26 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        sharedPref = getSharedPreferences("myScores", Context.MODE_PRIVATE);
+        String name = sharedPref.getString("name", "Player1");
+        String name2 = sharedPref.getString("name2", "Player2");
+        String name3 = sharedPref.getString("name3", "Player3");
+
+        int score = sharedPref.getInt("highScore", 0);
+        int score2 = sharedPref.getInt("highScore2", 0);
+        int score3 = sharedPref.getInt("highScore3", 0);
 
 
+        editor = sharedPref.edit();
+        editor.putString("name", name);
+        editor.putInt("highScore", score);
+        editor.putString("name2", name2);
+        editor.putInt("highScore2", score2);
+        editor.putString("name3", name3);
+        editor.putInt("highScore3", score3);
+        editor.apply();
+        
         mTileGrid = findViewById(R.id.tile_grid);
         mRoundLabel = findViewById(R.id.round);
 
@@ -124,15 +143,15 @@ public class MainActivity extends AppCompatActivity {
 
             if (buttonIndex == mRoundOrder[mButtonClicks] && mButtonClicks == mRoundOrder.length - 1) {
 
-                long time = 400;
+                long time = 500;
 
                 if (mTimer != null) {
                     mTimer.cancel();
                 }
 
-                mTimer = new CountDownTimer(time, 400) {
+                mTimer = new CountDownTimer(time, 500) {
                     public void onTick(long millisUntilFinished) {
-                        tileButton.setBackgroundColor(mLightOnColorId);
+                        tileButton.setBackgroundColor(mLightOnColor);
                     }
 
                     public void onFinish() {
@@ -148,15 +167,15 @@ public class MainActivity extends AppCompatActivity {
 
             else if (buttonIndex == mRoundOrder[mButtonClicks] && mButtonClicks < mRoundOrder.length) {
 
-                long time = 400;
+                long time = 500;
 
                 if (mTimer != null) {
                     mTimer.cancel();
                 }
 
-                mTimer = new CountDownTimer(time, 400) {
+                mTimer = new CountDownTimer(time, 500) {
                     public void onTick(long millisUntilFinished) {
-                        tileButton.setBackgroundColor(mLightOnColorId);
+                        tileButton.setBackgroundColor(mLightOnColor);
                     }
 
                     public void onFinish() {
@@ -172,6 +191,9 @@ public class MainActivity extends AppCompatActivity {
                 tileButton.setBackgroundColor(mWrongTileColor);
                 run = false;
                 mButtonClicks = 0;
+
+                setHighScore();
+
                 mRound = 1;
                 runGame();
 
@@ -184,6 +206,98 @@ public class MainActivity extends AppCompatActivity {
         setTilesOff();
         runGame();
     }
+    
+    public void setHighScore(){
+        int currentHigh = sharedPref.getInt("highScore3", 0);
+
+        if(mRound > currentHigh){
+            // Create a new AlertDialog builder
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            // Set the title of the dialog
+            builder.setTitle("New high score!");
+
+            // Set the message of the dialog
+            builder.setMessage("Please enter your name:");
+
+            // Create an EditText widget to accept the user's input
+            final EditText input = new EditText(this);
+
+            // Set the EditText widget as the input of the dialog
+            builder.setView(input);
+
+            // Set up the buttons for the dialog
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // Get the user's input from the EditText widget
+                    playerName = input.getText().toString();
+
+                    // Do something with the user's name (e.g. save it to a high score list)
+                    int currentHigh = sharedPref.getInt("highScore2", 0);
+
+                    if(mRound > currentHigh) {
+                        currentHigh = sharedPref.getInt("highScore", 0);
+
+                        if(mRound > currentHigh) {
+                            sharedPref = getSharedPreferences("myScores", Context.MODE_PRIVATE);
+                            editor = sharedPref.edit();
+
+                            int score2 = sharedPref.getInt("highScore", 0);
+                            String name2 = sharedPref.getString("name", null);
+
+                            int score3 = sharedPref.getInt("highScore2", 0);
+                            String name3 = sharedPref.getString("name2", null);
+
+
+                            editor.putString("name", playerName);
+                            editor.putInt("highScore", mRound);
+
+                            editor.putString("name2", name2);
+                            editor.putInt("highScore2", score2);
+
+                            editor.putString("name3", name3);
+                            editor.putInt("highScore3", score3);
+                            editor.apply();
+                        }
+                        else {
+                            sharedPref = getSharedPreferences("myScores", Context.MODE_PRIVATE);
+                            editor = sharedPref.edit();
+
+                            int score3 = sharedPref.getInt("highScore2", 0);
+                            String name3 = sharedPref.getString("name2", null);
+
+                            editor.putString("name2", playerName);
+                            editor.putInt("highScore2", mRound);
+
+                            editor.putString("name3", name3);
+                            editor.putInt("highScore3", score3);
+                            editor.apply();
+                        }
+                    }
+                    else {
+                        sharedPref = getSharedPreferences("myScores", Context.MODE_PRIVATE);
+                        editor = sharedPref.edit();
+                        editor.putString("name", playerName);
+                        editor.putInt("highScore3", mRound);
+                        editor.apply();
+                    }
+                }
+            });
+
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // Do nothing (the dialog will be dismissed automatically)
+                }
+            });
+
+            // Show the dialog
+            builder.show();
+
+        }
+    }
+    
     public void onCustomizeClick(View view) {
         Intent intent = new Intent(this, ColorActivity.class);
         intent.putExtra(ColorActivity.EXTRA_COLOR, mLightOnColorId);
