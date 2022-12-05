@@ -4,6 +4,8 @@
     <string name="new_game">New Game</string>
     <string name="try_again">Click New Game to try again!</string>
     <string name="congrats">Congratulations!</string>
-    <string name="customize" >Customize</string>
-    <string name="howTo" >How to Play</string>
+    <string name="customize">Customize</string>
+    <string name="howto_instructions">Click the correct tiles in the exact order displayed and advance through the rounds to beat the high score!</string>
+    <string name="memory">Memory</string>
+    <string name="howto_button">How To Play</string>
 </resources>
