@@ -25,7 +25,7 @@ public class HomeScreen extends AppCompatActivity {
         finish();
     }
     public void onHowtoPlayClick(View view) {
-        Intent intent=new Intent(HomeScreen.this, MainActivity.class);
+        Intent intent=new Intent(HomeScreen.this, HowToActivity.class);
         startActivity(intent);
         finish();
     }

@@ -60,7 +60,7 @@
     <Button
         android:id="@+id/change_color_button"
         style="@style/GameOptionButton"
-        android:text="@string/color_button"
+        android:text="@string/customize"
         android:onClick="onCustomizeClick"
         app:layout_constraintLeft_toLeftOf="@id/new_game_button"
         app:layout_constraintRight_toRightOf="@id/new_game_button"
