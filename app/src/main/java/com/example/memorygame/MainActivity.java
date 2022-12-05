@@ -1,5 +1,7 @@
 package com.example.memorygame;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -8,6 +10,11 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.ButtonBarLayout;
 import androidx.core.content.ContextCompat;
@@ -19,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private MemoryGame mGame;
     private GridLayout mTileGrid;
     private TextView mRoundLabel;
-    private int mLightOnColor;
+    private int mLightOnColorId;
     private int mLightOffColor;
     private int mWrongTileColor;
     private int mButtonClicks;
@@ -39,13 +46,14 @@ public class MainActivity extends AppCompatActivity {
         mTileGrid = findViewById(R.id.tile_grid);
         mRoundLabel = findViewById(R.id.round);
 
+
         // Add the same click handler to all grid buttons
         for(int buttonIndex = 0; buttonIndex < mTileGrid.getChildCount(); buttonIndex++) {
             Button tileButton = (Button) mTileGrid.getChildAt(buttonIndex);
             tileButton.setOnClickListener(this::onTileButtonClick);
         }
 
-        mLightOnColor = ContextCompat.getColor(this, R.color.yellow);
+        mLightOnColorId = R.color.yellow;
         mLightOffColor = ContextCompat.getColor(this, R.color.black);
         mWrongTileColor = ContextCompat.getColor(this, R.color.red);
         mButtonClicks = 0;
@@ -92,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void tileOn(int[] order, int counter) {
         Button tileButton = (Button) mTileGrid.getChildAt(order[counter]);
-        tileButton.setBackgroundColor(mLightOnColor);
+        tileButton.setBackgroundColor(mLightOnColorId);
     }
 
     public void tileOff(int[] order, int counter) {
@@ -124,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
                 mTimer = new CountDownTimer(time, 400) {
                     public void onTick(long millisUntilFinished) {
-                        tileButton.setBackgroundColor(mLightOnColor);
+                        tileButton.setBackgroundColor(mLightOnColorId);
                     }
 
                     public void onFinish() {
@@ -148,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
 
                 mTimer = new CountDownTimer(time, 400) {
                     public void onTick(long millisUntilFinished) {
-                        tileButton.setBackgroundColor(mLightOnColor);
+                        tileButton.setBackgroundColor(mLightOnColorId);
                     }
 
                     public void onFinish() {
@@ -176,5 +184,38 @@ public class MainActivity extends AppCompatActivity {
         setTilesOff();
         runGame();
     }
+    public void onCustomizeClick(View view) {
+        Intent intent = new Intent(this, ColorActivity.class);
+        intent.putExtra(ColorActivity.EXTRA_COLOR, mLightOnColorId);
+        mColorResultLauncher.launch(intent);
+    }
+
+    private void setButtonColors() {
+
+        for (int buttonIndex = 0; buttonIndex < mTileGrid.getChildCount(); buttonIndex++) {
+            Button gridButton = (Button) mTileGrid.getChildAt(buttonIndex);
+
+            // Find the button's row and col
+            int row = buttonIndex / MemoryGame.GRID_SIZE;
+            int col = buttonIndex % MemoryGame.GRID_SIZE;
+        }
+    }
+
+    ActivityResultLauncher<Intent> mColorResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        if (data != null) {
+                            // Create the "on" button color from the chosen color ID from ColorActivity
+                            mLightOnColorId = data.getIntExtra(ColorActivity.EXTRA_COLOR, R.color.yellow);
+                            mLightOnColorId = ContextCompat.getColor(MainActivity.this, mLightOnColorId);
+                            setButtonColors();
+                        }
+                    }
+                }
+            });
 
 }
