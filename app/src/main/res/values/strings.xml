@@ -1,11 +1,13 @@
 <resources>
     <string name="app_name">Memory Tiles</string>
     <string name="round_number">Round 1</string>
+    <string name="score">Score: 0</string>
+    <string name="play_game">Play</string>
     <string name="new_game">New Game</string>
     <string name="try_again">Click New Game to try again!</string>
     <string name="congrats">Congratulations!</string>
-    <string name="customize" >Customize</string>
-    <string name="howTo" >How to Play</string>
-    <string name="howto_instructions" > Colored tiles will display during each round. Click the colored tiles in the correct order to advance through higher rounds. Beat the high score! </string>
-    <string name="howTo_button" />
+    <string name="customize">Customize</string>
+    <string name="howTo">How to Play</string>
+    <string name="howto_instructions"> Colored tiles will display during each round. Click the colored tiles in the correct order to advance. </string>
+    <string name="highscore">High Scores</string>
 </resources>

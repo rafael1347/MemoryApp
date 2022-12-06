@@ -18,6 +18,13 @@ public class MemoryGame {
 
         for(int i = 0; i < round; i++) {
             int tile = randNum.nextInt(GRID_SIZE*GRID_SIZE);
+            
+            if(i > 0 && tile == tileOrder[i-1]){
+                while(tile == tileOrder[i-1]){
+                    tile = randNum.nextInt(GRID_SIZE*GRID_SIZE);
+                }
+            }
+            
             tileOrder[i] = tile;
         }
 

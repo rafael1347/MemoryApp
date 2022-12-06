@@ -4,47 +4,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_500"
-    android:orientation="horizontal"
-    tools:context=".HomeScreen">
+    tools:context=".HomeScreen"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:textColor="@color/blue_500"
+        android:layout_marginTop="200dp"
+        android:text="@string/app_name"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/startGame"
         style="@style/GameOptionButton"
-        android:layout_marginTop="408dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:onClick="onNewGameClick"
-        android:text="@string/new_game"
+        android:text="@string/play_game"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/title" />
 
     <Button
         android:id="@+id/howTo"
         style="@style/GameOptionButton"
-        android:layout_marginTop="476dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:onClick="onHowtoPlayClick"
         android:text="@string/howTo"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/startGame" />
 
-    <TextView
-        android:id="@+id/textView"
+    <Button
+        android:id="@+id/highscoreButton"
+        style="@style/GameOptionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:elegantTextHeight="true"
-        android:text="@string/app_name"
-        android:textAllCaps="true"
-        android:textColor="@color/white"
-        android:textFontWeight="600"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="0.498"
+        android:layout_marginTop="10dp"
+        android:onClick="onHighscoreButtonClick"
+        android:text="@string/highscore"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/howTo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
