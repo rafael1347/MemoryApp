@@ -6,7 +6,4 @@
     <string name="congrats">Congratulations!</string>
     <string name="customize" >Customize</string>
     <string name="howTo" >How to Play</string>
-    <string name="choose_color" />
-    <string name="howto_instructions" />
-    <string name="color_button" />
 </resources>
