@@ -20,7 +20,8 @@
             android:exported="false" />
         <activity
             android:name=".HowToActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".HomeScreen"/>
         <activity
             android:name=".ColorActivity"
             android:exported="false" />
