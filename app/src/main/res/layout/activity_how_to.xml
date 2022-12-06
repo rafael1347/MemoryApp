@@ -9,19 +9,19 @@
 
     <TextView
         android:id="@+id/instructionsTextView"
-        android:textSize="50sp"
+        android:textSize="25sp"
         android:layout_margin="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:gravity="top"
         android:text="@string/howto_instructions"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:src="@drawable/memory"
         android:contentDescription="@string/howto_instructions"
         android:layout_marginBottom="30dp"
