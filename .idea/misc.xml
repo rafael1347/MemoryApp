@@ -3,16 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/chanc/AndroidStudioProjects/MemoryApp/app/src/main/res/layout/activity_color.xml" value="0.1" />
         <entry key="..\:/Users/chanc/AndroidStudioProjects/MemoryApp/app/src/main/res/layout/activity_home_screen.xml" value="0.31237721021611004" />
         <entry key="..\:/Users/chanc/AndroidStudioProjects/MemoryApp/app/src/main/res/layout/activity_how_to.xml" value="0.1" />
         <entry key="..\:/Users/chanc/AndroidStudioProjects/MemoryApp/app/src/main/res/layout/activity_main.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/chanc/AndroidStudioProjects/MemoryApp/app/src/main/res/layout/splash.xml" value="0.1413373860182371" />
         <entry key="app/src/main/res/drawable/Mind_background.xml" value="0.1345" />
-        <entry key="app/src/main/res/drawable/ic_baseline_videogame_asset_24 2.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_videogame_asset_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="app/src/main/res/layout/Splash.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_color.xml" value="0.15520833333333334" />
-        <entry key="app/src/main/res/layout/activity_home_screen.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/activity_home_screen.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/splash.xml" value="0.1" />
       </map>
