@@ -10,4 +10,5 @@
     <string name="howTo">How to Play</string>
     <string name="howto_instructions"> Colored tiles will display during each round. Click the colored tiles in the correct order to advance. </string>
     <string name="highscore">High Scores</string>
+    <string name="baseScore">Score: 0</string>
 </resources>
