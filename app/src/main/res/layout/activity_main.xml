@@ -48,22 +48,31 @@
         <Button style="@style/TileButton" />
     </GridLayout>
 
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/baseScore"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tile_grid" />
+
     <Button
         android:id="@+id/new_game_button"
         style="@style/GameOptionButton"
         android:layout_marginTop="20dp"
         android:text="@string/new_game"
-        android:onClick="onNewGameClick"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tile_grid" />
+        app:layout_constraintTop_toBottomOf="@id/score" />
+
     <Button
         android:id="@+id/change_color_button"
         style="@style/GameOptionButton"
         android:text="@string/customize"
-        android:onClick="onCustomizeClick"
-        app:layout_constraintLeft_toLeftOf="@id/new_game_button"
-        app:layout_constraintRight_toRightOf="@id/new_game_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/new_game_button"/>
 
 

@@ -1,13 +1,18 @@
 package com.example.memorygame;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private GridLayout mTileGrid;
     private TextView mRoundLabel;
     private TextView mScoreLabel;
-    private int mLightOnColorId;
+    private int mLightOnColor;
     private int mLightOffColor;
     private int mWrongTileColor;
     private int mButtonClicks;
@@ -57,6 +62,18 @@ public class MainActivity extends AppCompatActivity {
         mTileGrid = findViewById(R.id.tile_grid);
         mRoundLabel = findViewById(R.id.round);
         mScoreLabel = findViewById(R.id.score);
+        Button newGameButton = findViewById(R.id.new_game_button);
+        Button customButton = findViewById(R.id.change_color_button);
+
+        // Add the same click handler to all grid buttons
+        for(int buttonIndex = 0; buttonIndex < mTileGrid.getChildCount(); buttonIndex++) {
+            Button tileButton = (Button) mTileGrid.getChildAt(buttonIndex);
+            tileButton.setOnClickListener(this::onTileButtonClick);
+        }
+
+        newGameButton.setOnClickListener(this::onNewGameClick);
+        customButton.setOnClickListener(this::onCustomizeClick);
+
         
         sharedPref = getSharedPreferences("myScores", Context.MODE_PRIVATE);
         String name = sharedPref.getString("name", "Player1");
@@ -78,13 +95,7 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
 
 
-        // Add the same click handler to all grid buttons
-        for(int buttonIndex = 0; buttonIndex < mTileGrid.getChildCount(); buttonIndex++) {
-            Button tileButton = (Button) mTileGrid.getChildAt(buttonIndex);
-            tileButton.setOnClickListener(this::onTileButtonClick);
-        }
-
-        mLightOnColorId = R.color.yellow;
+        mLightOnColor = R.color.yellow;
         mLightOffColor = ContextCompat.getColor(this, R.color.black);
         mWrongTileColor = ContextCompat.getColor(this, R.color.red);
         mButtonClicks = 0;
@@ -107,7 +118,8 @@ public class MainActivity extends AppCompatActivity {
         
         if(run) {
             mRoundOrder = mGame.newRound(mRound);
-            mRoundLabel.setText("Round " + mRound);
+            String roundText = "Round " + mRound;
+            mRoundLabel.setText(roundText);
             mCounter = 0;
 
             long time = mRound  * 1000;
@@ -155,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void tileOn(int[] order, int counter) {
         Button tileButton = (Button) mTileGrid.getChildAt(order[counter]);
-        tileButton.setBackgroundColor(mLightOnColorId);
+        tileButton.setBackgroundColor(mLightOnColor);
     }
 
     public void tileOff(int[] order, int counter) {
@@ -164,7 +176,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setTilesOff(){
-        for(int i = 0; i < mGame.GRID_SIZE * mGame.GRID_SIZE; i++){
+
+        int gridSize = mGame.GRID_SIZE;
+
+        for(int i = 0; i < gridSize * gridSize; i++){
             Button tileButton = (Button) mTileGrid.getChildAt(i);
             tileButton.setBackgroundColor(mLightOffColor);
         }
@@ -180,7 +195,8 @@ public class MainActivity extends AppCompatActivity {
             if (buttonIndex == mRoundOrder[mButtonClicks] && mButtonClicks == mRoundOrder.length - 1) {
 
                 userScore++;
-                mScoreLabel.setText("Score: " + userScore);
+                String scoreText = "Score: " + userScore;
+                mScoreLabel.setText(scoreText);
 
                 long time = 500;
 
@@ -190,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
 
                 mTimer = new CountDownTimer(time, 500) {
                     public void onTick(long millisUntilFinished) {
-                        tileButton.setBackgroundColor(mLightOnColorId);
+                        tileButton.setBackgroundColor(mLightOnColor);
                     }
 
                     public void onFinish() {
@@ -207,7 +223,8 @@ public class MainActivity extends AppCompatActivity {
             else if (buttonIndex == mRoundOrder[mButtonClicks] && mButtonClicks < mRoundOrder.length) {
 
                 userScore++;
-                mScoreLabel.setText("Score: " + userScore);
+                String userText = "Score: " + userScore;
+                mScoreLabel.setText(userText);
 
                 long time = 400;
 
@@ -217,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
 
                 mTimer = new CountDownTimer(time, 400) {
                     public void onTick(long millisUntilFinished) {
-                        tileButton.setBackgroundColor(mLightOnColorId);
+                        tileButton.setBackgroundColor(mLightOnColor);
                     }
 
                     public void onFinish() {
@@ -228,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
                 mButtonClicks++;
 
             }
-            else if (buttonIndex != mRoundOrder[mButtonClicks]) {
+            else {
 
                 tileButton.setBackgroundColor(mWrongTileColor);
                 run = false;
@@ -247,7 +264,8 @@ public class MainActivity extends AppCompatActivity {
         run = true;
         mRound = 1;
         userScore = 0;
-        mScoreLabel.setText("Score: " + userScore);
+        String userText = "Score: " + userScore;
+        mScoreLabel.setText(userText);
         setTilesOff();
         runGame();
     }
@@ -345,7 +363,7 @@ public class MainActivity extends AppCompatActivity {
     
     public void onCustomizeClick(View view) {
         Intent intent = new Intent(this, ColorActivity.class);
-        intent.putExtra(ColorActivity.EXTRA_COLOR, mLightOnColorId);
+        intent.putExtra(ColorActivity.EXTRA_COLOR, mLightOnColor);
         mColorResultLauncher.launch(intent);
     }
 
@@ -369,8 +387,8 @@ public class MainActivity extends AppCompatActivity {
                         Intent data = result.getData();
                         if (data != null) {
                             // Create the "on" button color from the chosen color ID from ColorActivity
-                            mLightOnColorId = data.getIntExtra(ColorActivity.EXTRA_COLOR, R.color.yellow);
-                            mLightOnColorId = ContextCompat.getColor(MainActivity.this, mLightOnColorId);
+                            mLightOnColor = data.getIntExtra(ColorActivity.EXTRA_COLOR, R.color.yellow);
+                            mLightOnColor = ContextCompat.getColor(MainActivity.this, mLightOnColor);
                             setButtonColors();
                         }
                     }
