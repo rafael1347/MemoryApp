@@ -5,15 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeScreen"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="@color/blue_500">
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="40sp"
-        android:textColor="@color/blue_500"
-        android:layout_marginTop="200dp"
+        android:textColor="@color/white"
+        android:layout_marginTop="150dp"
         android:text="@string/app_name"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -23,9 +24,8 @@
     <Button
         android:id="@+id/startGame"
         style="@style/GameOptionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+
+        android:layout_marginTop="100dp"
         android:onClick="onNewGameClick"
         android:text="@string/play_game"
         app:layout_constraintHorizontal_bias="0.498"
@@ -36,8 +36,6 @@
     <Button
         android:id="@+id/howTo"
         style="@style/GameOptionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:onClick="onHowtoPlayClick"
         android:text="@string/howTo"
@@ -48,8 +46,6 @@
     <Button
         android:id="@+id/highscoreButton"
         style="@style/GameOptionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:onClick="onHighscoreButtonClick"
         android:text="@string/highscore"
