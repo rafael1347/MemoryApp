@@ -11,4 +11,10 @@
     <string name="howto_instructions"> Colored tiles will display during each round. Click the colored tiles in the correct order to advance. </string>
     <string name="highscore">High Scores</string>
     <string name="baseScore">Score: 0</string>
+    <string name="rank">Rank</string>
+    <string name="name">Name</string>
+    <string name="scores">Scores</string>
+    <string name="First">First</string>
+    <string name="Second">Second</string>
+    <string name="Third">Third</string>
 </resources>

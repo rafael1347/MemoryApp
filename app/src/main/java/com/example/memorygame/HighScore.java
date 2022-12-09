@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 public class HighScore extends AppCompatActivity {
@@ -28,6 +29,7 @@ public class HighScore extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
 
         // showing the back button in action bar
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         mUser1 = findViewById(R.id.user1);
@@ -41,23 +43,39 @@ public class HighScore extends AppCompatActivity {
         String username = sharedPref.getString("name", "Player1");
         int score = sharedPref.getInt("highScore", 0);
         String scoreText = Integer.toString(score);
+        if(score == 0) {
+            mUser1.setVisibility(View.GONE);
+        }
+        else {
 
-        mUser1.setText(username);
-        mScore1.setText(scoreText);
-
+            mUser1.setText(username);
+            mScore1.setText(scoreText);
+        }
         username = sharedPref.getString("name2", "Player2");
         score = sharedPref.getInt("highScore2", 0);
         scoreText = Integer.toString(score);
+        if(score == 0) {
+            mUser2.setVisibility(View.GONE);
+        }
+        else {
+            mUser2.setText(username);
+            mScore2.setText(scoreText);
+        }
 
-        mUser2.setText(username);
-        mScore2.setText(scoreText);
+
 
         username = sharedPref.getString("name3", "Player3");
         score = sharedPref.getInt("highScore3", 0);
         scoreText = Integer.toString(score);
 
-        mUser3.setText(username);
-        mScore3.setText(scoreText);
+        if(score == 0) {
+            mUser3.setVisibility(View.GONE);
+        }
+        else {
+
+            mUser3.setText(username);
+            mScore3.setText(scoreText);
+        }
 
     }
 
